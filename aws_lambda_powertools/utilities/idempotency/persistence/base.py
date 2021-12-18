@@ -227,7 +227,7 @@ class BasePersistenceLayer(ABC):
 
         """
         data = getattr(data, "raw_event", data)  # could be a data class depending on decorator order
-        hashed_data = self.hash_function(json.dumps(data, cls=Encoder, sort_keys=True).encode())
+        hashed_data = self.hash_function(json.dumps(data, cls=Encoder, sort_keys=True, default=str).encode())
         return hashed_data.hexdigest()
 
     def _validate_payload(self, data: Dict[str, Any], data_record: DataRecord) -> None:
